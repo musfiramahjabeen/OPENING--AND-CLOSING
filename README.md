@@ -9,6 +9,7 @@ To implement Opening and Closing using Python and OpenCV.
 ### Step1:
 Import the necessary packages
 
+
 ### Step2:
 Create the Text using cv2.putText
 
@@ -21,48 +22,68 @@ Use Opening operation
 ### Step5:
 Use Closing Operation
 
+ 
 ## Program:
-## NAME:MUSFIRA MAHJABEEN M
-## Reg no:212223230130
 ```
-from IPython import get_ipython
-from IPython.display import display
-
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-from google.colab.patches import cv2_imshow
+# Step 1: Load the image using cv2.imread()
+image = cv2.imread("Fish.jpg")  
 
-img1=np.zeros((300,600),dtype='uint8')
-font=cv2.FONT_ITALIC
-img2=cv2.putText(img1,"Hiamavath",(5,100),font,3,(255,0,0),5,cv2.LINE_AA)
+# Step 2: Create a structuring element (5x5 rectangular)
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
 
-cv2_imshow(img2)
+# Step 3: Use Opening operation (erosion followed by dilation)
+opening_image = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
 
-kernel1=cv2.getStructuringElement(cv2.MORPH_RECT,(11,11))
-kernel2=cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+# Step 4: Use Closing operation (dilation followed by erosion)
+closing_image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
 
-img4=cv2.morphologyEx(img1,cv2.MORPH_OPEN,kernel2)
+# Convert images from BGR to RGB for Matplotlib
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+opening_image_rgb = cv2.cvtColor(opening_image, cv2.COLOR_BGR2RGB)
+closing_image_rgb = cv2.cvtColor(closing_image, cv2.COLOR_BGR2RGB)
 
-cv2_imshow(img4)
+# Plot the original, opening, and closing images using Matplotlib
+plt.figure(figsize=(10, 5))
 
-img3=cv2.morphologyEx(img1,cv2.MORPH_CLOSE,kernel1)
+plt.subplot(1, 3, 1)
+plt.imshow(image_rgb)
+plt.title("Original Image")
+plt.axis("off")
 
-cv2_imshow(img3)
+plt.subplot(1, 3, 2)
+plt.imshow(opening_image_rgb)
+plt.title("Opening Operation")
+plt.axis("off")
 
+plt.subplot(1, 3, 3)
+plt.imshow(closing_image_rgb)
+plt.title("Closing Operation")
+plt.axis("off")
+
+plt.tight_layout()
+plt.show()
 
 ```
 ## Output:
 
 ### Display the input Image
-![image](https://github.com/user-attachments/assets/117be1e1-a9c5-4113-95dd-fd666d90164e)
+![image](https://github.com/user-attachments/assets/c6772ac7-5d88-46ba-9c06-f63c15e3c7ed)
+
 
 ### Display the result of Opening
-![image](https://github.com/user-attachments/assets/cb05f756-9a96-48bd-9511-37b4172587c8)
+![image](https://github.com/user-attachments/assets/1dc47e42-1357-449e-9d9b-6984ddb666a6)
+
+
 
 ### Display the result of Closing
-![image](https://github.com/user-attachments/assets/6ccb36e7-f2d8-4212-a9ec-8cec0ab7a95d)
+![image](https://github.com/user-attachments/assets/4f0cd2c5-bbdd-4cbc-bf99-ab1bc25001be)
+
+
+
 
 ## Result
 Thus the Opening and Closing operation is used in the image using python and OpenCV.
